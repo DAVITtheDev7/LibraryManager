@@ -45,7 +45,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.all(12),
               itemCount: books.length,
               itemBuilder: (context, index) {
-                return BookTile(book: books[index]);
+                return BookTile(
+                  book: books[index],
+                  onEdit: (b) => _showUpdateDialog(context, b),
+                );
               },
             );
           }
@@ -120,6 +123,90 @@ class _HomePageState extends State<HomePage> {
               child: const Text("Save"),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  void _showUpdateDialog(BuildContext context, Book oldBook) {
+    final titleCtrl = TextEditingController(text: oldBook.title);
+    final authorCtrl = TextEditingController(text: oldBook.author);
+    final yearCtrl = TextEditingController(
+      text: oldBook.publishYear.toString(),
+    );
+
+    bool isAvailable = oldBook.available;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: const Text("Update Book"),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: titleCtrl,
+                    decoration: const InputDecoration(labelText: "Title"),
+                  ),
+                  TextField(
+                    controller: authorCtrl,
+                    decoration: const InputDecoration(labelText: "Author"),
+                  ),
+                  TextField(
+                    controller: yearCtrl,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                      labelText: "Publish Year",
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  ToggleButtons(
+                    isSelected: [isAvailable],
+                    children: const [Text("Available")],
+                    onPressed: (_) {
+                      setState(() => isAvailable = !isAvailable);
+                    },
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text("Cancel"),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    final title = titleCtrl.text.trim();
+                    final author = authorCtrl.text.trim();
+                    final year = int.tryParse(yearCtrl.text.trim()) ?? 0;
+
+                    if (title.isNotEmpty && author.isNotEmpty) {
+                      context.read<BookBloc>().add(
+                        UpdateBookEvent(
+                          id: oldBook.id!,
+                          book: Book(
+                            id: oldBook.id,
+                            title: title,
+                            author: author,
+                            publishYear: year,
+                            available: isAvailable,
+                          ),
+                        ),
+                      );
+                    }
+
+                    Navigator.pop(context);
+                  },
+                  child: const Text("Save"),
+                ),
+              ],
+            );
+          },
         );
       },
     );

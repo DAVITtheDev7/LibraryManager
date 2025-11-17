@@ -19,8 +19,8 @@ class BookService(
         val updated = old.copy(
             title = new.title,
             author = new.author,
-            publishYear = old.publishYear,
-            available = old.available
+            publishYear = new.publishYear,
+            available = new.available
         )
         return repo.save(updated)
     }

@@ -6,7 +6,6 @@ data class Book(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
-
     var title: String = "",
     var author: String = "",
     var publishYear: Int = 0,

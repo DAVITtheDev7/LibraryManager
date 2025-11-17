@@ -9,3 +9,10 @@ class AddBookEvent extends BookEvent {
 
   AddBookEvent({required this.book});
 }
+
+class UpdateBookEvent extends BookEvent {
+  final int id;
+  final Book book;
+
+  UpdateBookEvent({required this.id, required this.book});
+}

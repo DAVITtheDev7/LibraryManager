@@ -21,4 +21,15 @@ class BookRepositoryImpl implements BookRepository {
       available: book.available,
     ),
   );
+
+  @override
+  Future<Book> updateBook(Book book) => bookRemoteDs.updateBook(
+    BookModel(
+      id: book.id,
+      title: book.title,
+      author: book.author,
+      publishYear: book.publishYear,
+      available: book.available,
+    ),
+  );
 }

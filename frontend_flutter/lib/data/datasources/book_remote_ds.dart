@@ -17,4 +17,9 @@ class BookRemoteDs {
     final response = await dio.post('/books', data: book.toJson());
     return BookModel.fromJson(response.data);
   }
+
+  Future<BookModel> updateBook(BookModel book) async {
+    final response = await dio.put('/books/${book.id}', data: book.toJson());
+    return BookModel.fromJson(response.data);
+  }
 }

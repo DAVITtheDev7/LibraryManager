@@ -6,6 +6,7 @@ import 'package:librarymanager/data/datasources/book_remote_ds.dart';
 import 'package:librarymanager/data/repositories/book_repository_impl.dart';
 import 'package:librarymanager/domain/usecases/get_books.dart';
 import 'package:librarymanager/domain/usecases/create_book.dart';
+import 'package:librarymanager/domain/usecases/update_book.dart';
 import 'package:librarymanager/presentation/blocs/book/book_bloc.dart';
 import 'package:librarymanager/presentation/pages/home/home_page.dart';
 
@@ -22,12 +23,17 @@ void main() {
   // UseCases
   final getBooks = GetBooks(repo);
   final createBook = CreateBook(repo);
+  final updateBook = UpdateBook(repo);
 
   runApp(
     MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (_) => BookBloc(getBooks: getBooks, createBook: createBook),
+          create: (_) => BookBloc(
+            getBooks: getBooks,
+            createBook: createBook,
+            updateBook: updateBook,
+          ),
         ),
       ],
       child: const MyApp(),
