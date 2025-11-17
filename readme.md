@@ -7,7 +7,7 @@ Mobile frontend uses **Clean Architecture + BLoC + Dio**, backend uses **Spring 
 
 ##  **Tech Stack**
 
-### ** Flutter (Frontend)**
+### Flutter (Frontend)
 
 * Clean Architecture
 * BLoC state management
@@ -15,7 +15,7 @@ Mobile frontend uses **Clean Architecture + BLoC + Dio**, backend uses **Spring 
 * Repository pattern
 * Modular folder structure
 
-### ** Spring Boot Kotlin (Backend)**
+### Spring Boot Kotlin (Backend)
 
 * Kotlin 1.9
 * Spring Web
